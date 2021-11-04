@@ -58,8 +58,9 @@ coverage.xml
 # Django stuff:
 *.log
 local_settings.py
-db.sqlite3
+# db.sqlite3
 db.sqlite3-journal
+db.sqlite3
 
 # Flask stuff:
 instance/
@@ -127,3 +128,22 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# VS Code folders
+.vscode/
+*.code-workspace
+
+# Django files and folder
+cache/
+.DS_Store
+
+#PyCache and Migration
+accounts/__pycache__
+accounts/migrations
+books/__pycache__
+books/migrations
+cms/__pycache__
+cms/migrations
+core/__pycache__
+core/migrations
+media/

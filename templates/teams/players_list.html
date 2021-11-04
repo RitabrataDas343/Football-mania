@@ -1,0 +1,23 @@
+{% load cms_tags %} {% for player in player_list %}
+<tr id="{{ player.pk }}">
+    {% comment %}
+    <td>{{ forloop.counter }}</td> {% endcomment %}
+    <td>{{ player.title }}</td>
+    <td>{{ player.team }}</td>
+    <td>{{ player.username }}</td>
+    <td>{{ player.email }}</td>
+    <td>{{ player.date_bought|date:'M. d, Y' }}</td>
+    <td>
+        <a href="{% url 'teams:player-update' player.team.pk player.slug %}" class="btn btn-outline-info btn-sm border-0 rounded-circle ajax-load-form" title="Edit" name="edit" id="editButton-{{ player.pk }}"><i class="fa fa-edit"></i></a>
+        <a href="{% url 'teams:player-delete' player.team.pk player.slug %}" class="btn btn-outline-danger btn-sm border-0 rounded-circle ajax-load-form" title="Delete" name="delete" id="deleteButton-{{ player.pk }}"><i class="fa fa-trash-alt"></i></a>
+    </td>
+</tr>
+{% empty %}
+<tr class="table-warning nosort">
+    <td colspan="100%" class="text-center"><small class="text-muted">No {{ player_list|verbose_name|lower }}</small></td>
+</tr>
+{% endfor %} {% if player_list %}
+<tr class="table-light table-sm nosort">
+    <td colspan="100%"><small class="text-muted">Total rows: {{ player_list.count }}</small></td>
+</tr>
+{% endif %}

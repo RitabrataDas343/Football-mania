@@ -1,0 +1,23 @@
+{% load cms_tags %}
+
+{% for document in document_list %}
+<tr id="{{ document.pk }}">
+    <td><a href="{{ document.file.url }}">{{ document.filename }}</a></td>
+    <td>{{ document.uploaded_at|date:'M. d, Y' }}</td>
+    <td>
+        <a href="{% url 'teams:document-delete' document.team.pk document.pk %}"
+            class="btn btn-outline-danger btn-sm border-0 rounded-circle ajax-load-form" title="Delete" name="delete"
+            id="deleteButton-{{ document.pk }}"><i class="fa fa-trash-alt"></i></a>
+    </td>
+</tr>
+{% empty %}
+<tr class="table-warning nosort">
+    <td colspan="100%" class="text-center"><small class="text-muted">No {{ document_list|verbose_name|lower }}</small>
+    </td>
+</tr>
+{% endfor %}
+{% if document_list %}
+<tr class="table-light table-sm nosort">
+    <td colspan="100%"><small class="text-muted">Total rows: {{ document_list.count }}</small></td>
+</tr>
+{% endif %}

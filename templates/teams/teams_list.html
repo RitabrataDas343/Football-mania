@@ -1,0 +1,26 @@
+{% load cms_tags %} {% for team in team_list %}
+<tr id="{{ team.pk }}">
+    {% comment %}
+    <td>{{team.id }}</td> {% endcomment %} {% comment %}
+    <td>{{ forloop.counter }}</td> {% endcomment %}
+    <td><a href="{% url 'teams:players-list' team.pk %}" title="Leads">{{ team.team }}</a></td>
+    <td>{{ team.get_league_display }}</td>
+    <td>{{ team.establishment_date }}</td>
+    <td>{{ team.players }}</td>
+    <td>{{ team.price }}</td>
+    <td>
+        <a href="{% url 'teams:document-list' team.pk %}" class="btn btn-outline-success btn-sm border-0 rounded-circle" title="Files" name="files" id="filesButton-{{ team.pk }}"><i class="fa fa-copy"></i></a>
+        <td>
+            <a href="{% url 'teams:team-update' team.pk %}" class="btn btn-outline-info btn-sm border-0 rounded-circle ajax-load-form" title="Edit" name="edit" id="editButton-{{ team.pk }}"><i class="fa fa-edit"></i></a>
+            <a href="{% url 'teams:team-delete' team.pk %}" class="btn btn-outline-danger btn-sm border-0 rounded-circle ajax-load-form" title="Delete" name="delete" id="deleteButton-{{ team.pk }}"><i class="fa fa-trash-alt"></i></a>
+        </td>
+</tr>
+{% empty %}
+<tr class="table-warning nosort">
+    <td colspan="100%" class="text-center"><small class="text-muted">No {{ team_list|verbose_name|lower }}</small></td>
+</tr>
+{% endfor %} {% if team_list %}
+<tr class="table-light table-sm nosort">
+    <td colspan="100%"><small class="text-muted">Total rows: {{ team_list.count }}</small></td>
+</tr>
+{% endif %}

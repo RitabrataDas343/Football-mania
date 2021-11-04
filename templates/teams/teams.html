@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load cms_tags %}
+{% block title %} {{ title }} · {{ block.super }} {% endblock title %}
+{% block content %}  
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'teams:home' %}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ team_list|verbose_name:'verbose_name_plural' }}</li>
+  </ol>
+</nav>   
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    <h1 class="h2"><i class="fas fa-book text-info"> {{ title }}</i></h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <a class="btn btn-sm btn-outline-primary ajax-load-form" href="{% url 'teams:team-create' %}">
+        <i class="fas fa-plus-circle"></i> New {{ team_list|verbose_name|lower }}</a>
+    </div>
+</div>
+<small class="text-muted">Click on team title link to open documents... | drag and drop table rows to reorder list | double click to edit data on row</small>
+<table class="table table-hover" id="table-ajax-{{ team_list|verbose_name:'model_name' }}">
+  <thead class="thead-light">
+    <tr>
+      {% comment %} <th>#</th> {% endcomment %}
+      <th>{{ team_list|verbose_name:'field:team' }}</th>
+      <th>{{ team_list|verbose_name:'field:league' }}</th>
+      <th>{{ team_list|verbose_name:'field:establishment_date' }}</th>
+      <th>{{ team_list|verbose_name:'field:players' }}</th>
+      <th>{{ team_list|verbose_name:'field:price' }}</th>
+      <th style="width: 45px;">Files</th>
+      <th class="crud-lg">Action</th>
+    </tr>
+  </thead>
+  <tbody class="order" data-url="{% url 'cms:reorder' team_list|model_name %}">
+    {% include 'teams/teams_list.html' %}
+  </tbody>
+</table>
+{% endblock %}
